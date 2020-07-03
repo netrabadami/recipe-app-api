@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
                                         PermissionsMixin
-# Create your models here.
+
 
 class UserManager(BaseUserManager):
 
@@ -23,8 +23,10 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
 
         return user
-    
+
+
 class User(AbstractBaseUser, PermissionsMixin):
+
     """Custome user model that supports using email instead of username"""
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
@@ -34,5 +36,3 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
-
-    
